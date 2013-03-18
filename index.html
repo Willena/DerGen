@@ -9,6 +9,7 @@
     <body>
 		<div id="title">Dérive Génétique</div>
         <div id="holder" style="background-color : grey;" onclick="chooseRandomBall()"></div>
+		<div id="generationSt">Génération n°<span id="gennumberst">0</span></div><div id ="generationSd">Génération n°<span id="gennumbersd">1</span></div>
 		<div>nombre de couleur (entre 1 et 5)<input type="text" value="5" id="NBOFCOLLORS"><br>
 		Nombre de balles (entre 1 et 100)<input type="text" value="5" id="NBOFBALLS">
 		<input type="button" value="generer les balls" onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)"></div>
@@ -38,7 +39,7 @@
 		Raphael.fn.createBocal = function (x, sizeX, sizeY) {
 			 var position_x = 50+x;
 			return this.set(
-			this.path("M"+position_x+" 50l0 "+sizeY+"l"+sizeX+" 0l0 -"+sizeY+"").attr({'stroke-width':20, stroke : '#B34'})
+			this.path("M"+position_x+" 50l0 "+sizeY+"l"+sizeX+" 0l0 -"+sizeY+"").attr({'stroke-width':10, stroke : '#B34'})
 			);
 		};
 		//verifiacation et allocation du nombre de balls par ligne
