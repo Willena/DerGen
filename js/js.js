@@ -75,6 +75,11 @@ calculateBalls = function (nbballs) {
     }
 }
 generateBalls = function (NbBalls, DefinedColorfn, stOrSc) {
+    document.getElementById('generer').classList.add('disabled');
+    document.getElementById('tireruneboule').classList.remove('disabled');
+    document.getElementById('tirertouteslesboules').classList.remove('disabled');
+    document.getElementById('annuler').classList.remove('disabled');
+    
     DefinedColor = DefinedColorfn;
     //compteur de nombre pour les boucles initié a 0
     var ballsAdd = 0;

@@ -26,13 +26,13 @@
         </div>
         <div class="span6" style="margin-top: 40px;">
             <div id="toolbar">
-                <input type="button" class="btn btn-primary" value="Générer"
+                <input id="generer" type="button" class="btn btn-primary" value="Générer"
                        onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false); changeGen();">
-                <input type="button" class="btn btn-primary" value="Tirer une boule"
+                <input id="tireruneboule" type="button" class="btn btn-primary disabled" value="Tirer une boule"
                        onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
-                <input type="button" class="btn btn-primary " value="Tirer toutes les boules"
+                <input id="tirertouteslesboules" type="button" class="btn btn-primary disabled" value="Tirer toutes les boules"
                        onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
-                <input type="button" class="btn btn-primary " value="Annuler"
+                <input id="annuler" type="button" class="btn btn-primary disabled" value="Annuler"
                        onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
             </div>
         </div>
