@@ -1,6 +1,6 @@
 // defintion des variable globales
 var ra = Raphael("holder", "1000", "400"), balls = new Array(), counttirage = 0, posbaseX = 100, posbaseY = 300, espace = 350, NbbyLigne = 4, iY = 0, iX = 0, tempX = 0, tempY = 0, Rballs = 50, DefinedColor = 5;
-var rouge = 1, bleu = 1, turquoise = 1, rose = 1, violet = 1;
+var rouge = 0, bleu = 0, turquoise = 0, rose = 0, violet = 0, effectifTotale = 0;
 var Drouge = new Array(), Dbleu = new Array(), Dturquoise = new Array(), Drose = new Array(), Dviolet = new Array();
 //fonction reinit
 init = function () {
@@ -129,6 +129,7 @@ generateBalls = function (NbBalls, DefinedColorfn, stOrSc) {
 
 randomColor = function (NbOfCOlors) { // fonction pour choisir une couleur parmis 5
     //definitions des listes de coleurs
+    effectifTotale++;
     var ColorsFive = new Array('0.3', '0.5', '0.8', '0.9', '0.7'), ColorsFour = new Array('0.3', '0.5', '0.9', '0.7'), ColorsThree = new Array('0.3', '0.5', '0.9'), ColorsTwo = new Array('0.3', '0.8'), ColorOne = new Array('0.3');
 
     var chosedColor = Math.ceil(Math.random() * NbOfCOlors);
@@ -199,15 +200,12 @@ chooseRandomBall = function () {
     generateBalls(4, DefinedColor, true);
 }
 initGraph = function () {
-    var effectifTotal = bleu + violet + rose + turquoise + rouge;
-    var Fbleu = bleu / effectifTotal * 100, Fviolet = violet / effectifTotal * 100, Fturquoise = turquoise / effectifTotal * 100, Frose = rose / effectifTotal * 100, Frouge = rouge / effectifTotal * 100;
-    alert(Fbleu);
-    alert(effectifTotal);
-    Dbleu.push([0, Fbleu]);
-    Dviolet.push([0, Fviolet]);
-    Dturquoise.push([0, Fturquoise]);
-    Drose.push([0, Frose]);
-    Drouge.push([0, Frouge]);
+    var Fbleu = bleu / effectifTotale * 100, Fviolet = violet / effectifTotale * 100, Fturquoise = turquoise / effectifTotale * 100, Frose = rose / effectifTotale * 100, Frouge = rouge / effectifTotale * 100;
+    Dbleu.push([0, Fbleu], [3, 55]);
+    Dviolet.push([0, Fviolet], [3, 20]);
+    Dturquoise.push([0, Fturquoise], [3, 10]);
+    Drose.push([0, Frose], [3, 30]);
+    Drouge.push([0, Frouge], [3, 70]);
     $.plot("#graph", [
         { label:"Rouge", data:Drouge, color:"#FF0000" },
         { label:"Bleu", data:Dbleu, color:"#3333FF"},
