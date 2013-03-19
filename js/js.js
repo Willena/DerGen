@@ -1,13 +1,13 @@
 // defintion des variable globales
 var ra = Raphael("holder", "1000", "400"), balls = new Array(), counttirage = 0, posbaseX = 100, posbaseY = 300, espace = 350, NbbyLigne = 4, iY = 0, iX = 0, tempX = 0, tempY = 0, Rballs = 50, DefinedColor = 5;
 var rouge = 0, bleu = 0, turquoise = 0, rose = 0, violet = 0, effectifTotale = 0;
-var Drouge = new Array(), Dbleu = new Array(), Dturquoise = new Array(), Drose = new Array(), Dviolet = new Array();
+var Drouge = new Array(), Dbleu = new Array(), Dturquoise = new Array(), Drose = new Array(), Dviolet = new Array(), genactu = 0, gensuiv = 1;
 //fonction reinit
 init = function () {
     ra.clear();
     balls = new Array(), counttirage = 0, posbaseX = 100, posbaseY = 300, espace = 350, NbbyLigne = 4, iY = 0, iX = 0, tempX = 0, tempY = 0, Rballs = 50,
         Drouge = new Array(), Dbleu = new Array(), Dturquoise = new Array(), Drose = new Array(), Dviolet = new Array(), rouge = 0, bleu = 0, turquoise = 0,
-        rose = 0, violet = 0, effectifTotale = 0;
+        rose = 0, violet = 0, effectifTotale = 0, genactu = 0, gensuiv = 1;
     ra.createBocal(0, 300, 300);
     ra.createBocal(espace, 300, 300);
     plot = $.plot("#graph", [0, 0], {
@@ -20,6 +20,8 @@ init = function () {
             min:0
         }
     });
+    document.getElementById('gennumbersd').innerHTML = gensuiv;
+    document.getElementById('gennumberst').innerHTML = genactu;
 }
 
 // definitions des varriable pour la creation du cadre et des balls
@@ -239,5 +241,11 @@ window.onload = function () {
     //calcul de la taille des balls avec valeur par default
     //generateBalls(15, false); //sera remplacer par le contenu numerique du input prevu
     //chooseRandomBall();
+}
+changeGen = function () {
+    genactu++;
+    gensuiv++;
+    document.getElementById('gennumbersd').innerHTML = gensuiv;
+    document.getElementById('gennumberst').innerHTML = genactu;
 }
 
