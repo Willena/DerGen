@@ -7,50 +7,40 @@
     <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
     <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
-    <script src="http://jasny.github.com/bootstrap/assets/js/jquery.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-alert.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-scrollspy.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-button.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-carousel.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-typeahead.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-affix.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-inputmask.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-rowlink.js"></script>
-    <script src="http://jasny.github.com/bootstrap/assets/js/bootstrap-fileupload.js"></script>
     <script src="js/raphael-min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.flot.js"></script>
 </head>
 <body>
-    <h1>La dérive génétique</h1>
-    <div id="holder" class="well"></div>
-    <div id="generationSt">Génération n°<span id="gennumberst">0</span></div>
-    <div id ="generationSd">Génération n°<span id="gennumbersd">1</span></div>
+<h1>La dérive génétique</h1>
 
-    <div class="well">
-        <div class="row">
-            <div class="span4">
-                Nombre de couleurs (entre 2 et 5)<input type="text" value="5" id="NBOFCOLLORS"><br>
-                Nombre de balles (entre 5 et 100)<input type="text" value="5" id="NBOFBALLS">
-            </div>
-            <div class="span6" style="margin-top: 40px;">
-                <div class="btn-toolbar">
-                    <input type="button" class="btn btn-primary btn-large" value="Générer" onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
-                    <input type="button" class="btn btn-primary btn-large" value="Tirer une boule" onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
-                    <input type="button" class="btn btn-primary btn-large" value="Tirer toutes les boules" onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
-                    <input type="button" class="btn btn-primary btn-large" value="Annuler" onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
-                </div>
+<div id="graph"></div>
+<div id="holder" class="well"></div>
+<div id="generationSt">Génération n°<span id="gennumberst">0</span></div>
+<div id="generationSd">Génération n°<span id="gennumbersd">1</span></div>
+
+<div class="well">
+    <div class="row-fluid">
+        <div class="span4">
+            Nombre de couleurs (entre 2 et 5)<input type="text" value="5" id="NBOFCOLLORS"><br>
+            Nombre de balles (entre 5 et 100)<input type="text" value="5" id="NBOFBALLS">
+        </div>
+        <div class="span6" style="margin-top: 40px;">
+            <div id="toolbar">
+                <input type="button" class="btn btn-primary" value="Générer"
+                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
+                <input type="button" class="btn btn-primary" value="Tirer une boule"
+                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
+                <input type="button" class="btn btn-primary " value="Tirer toutes les boules"
+                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
+                <input type="button" class="btn btn-primary " value="Annuler"
+                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
             </div>
         </div>
     </div>
+</div>
 
-    <script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/js.js"></script>
 </body>
 </html>
 	
