@@ -8,7 +8,7 @@ init = function () {
     balls = new Array(), counttirage = 0, posbaseX = 100, posbaseY = 300, espace = 350, NbbyLigne = 4, iY = 0, iX = 0, tempX = 0, tempY = 0, Rballs = 50;
     ra.createBocal(0, 300, 300);
     ra.createBocal(espace, 300, 300);
-    $.plot("#graph", [0, 0], {
+    plot = $.plot("#graph", [0, 0], {
         yaxis:{
             ticks:5,
             min:0,
@@ -130,25 +130,27 @@ generateBalls = function (NbBalls, DefinedColorfn, stOrSc) {
 randomColor = function (NbOfCOlors) { // fonction pour choisir une couleur parmis 5
     //definitions des listes de coleurs
     effectifTotale++;
-    var ColorsFive = new Array('0.3', '0.5', '0.8', '0.9', '0.7'), ColorsFour = new Array('0.3', '0.5', '0.9', '0.7'), ColorsThree = new Array('0.3', '0.5', '0.9'), ColorsTwo = new Array('0.3', '0.8'), ColorOne = new Array('0.3');
+    var ColorsFive = new Array('0.5', '1', '0.5', '0.8', '0.9', '0.7'), ColorsFour = new Array('0.5', '1', '0.5', '0.9', '0.7'), ColorsThree = new Array('0.5', '1', '0.5', '0.9'), ColorsTwo = new Array('0.3', '1', '0.8'), ColorOne = new Array('0.3', '1');
 
     var chosedColor = Math.ceil(Math.random() * NbOfCOlors);
+    console.log(chosedColor);
     //traitement du choix et retour de la couleur choisi aleatoirment
     if (NbOfCOlors == 1) {
         rouge++;
-        return ColorOne[1];
+        return ColorOne[chosedColor];
     }
     else if (NbOfCOlors == 2) {
-        if (ColorsTwo[chosedColor] == "0.3") {
+        if (ColorsTwo[chosedColor] == "1") {
+
             rouge++;
         }
-        else {
+        else if (ColorsTwo[chosedColor] == "0.8") {
             violet++;
         }
         return ColorsTwo[chosedColor];
     }
     else if (NbOfCOlors == 3) {
-        if (ColorsThree[chosedColor] == "0.3") {
+        if (ColorsThree[chosedColor] == "1") {
             rouge++;
         }
         else if (ColorsThree[chosedColor] == "0.5") {
@@ -160,7 +162,7 @@ randomColor = function (NbOfCOlors) { // fonction pour choisir une couleur parmi
         return ColorsThree[chosedColor];
     }
     else if (NbOfCOlors == 4) {
-        if (ColorsFour[chosedColor] == "0.3") {
+        if (ColorsFour[chosedColor] == "1") {
             rouge++;
         }
         else if (ColorsFour[chosedColor] == "0.5") {
@@ -175,7 +177,7 @@ randomColor = function (NbOfCOlors) { // fonction pour choisir une couleur parmi
         return ColorsFour[chosedColor];
     }
     else if (NbOfCOlors == 5) {
-        if (ColorsFive[chosedColor] == "0.3") {
+        if (ColorsFive[chosedColor] == "1") {
             rouge++;
         }
         else if (ColorsFive[chosedColor] == "0.5") {
