@@ -20,21 +20,29 @@
 
 <div class="well">
     <div class="row-fluid">
-        <div class="span4">
-            Nombre de couleurs (entre 2 et 5)<input type="text" value="5" id="NBOFCOLLORS"><br>
-            Nombre de balles (entre 5 et 100)<input type="text" value="5" id="NBOFBALLS">
-        </div>
-        <div class="span6" style="margin-top: 40px;">
-            <div id="toolbar">
-                <input id="generer" type="button" class="btn btn-primary" value="Générer"
-                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false); changeGen();">
-                <input id="tireruneboule" type="button" class="btn btn-primary disabled" value="Tirer une boule"
-                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
-                <input id="tirertouteslesboules" type="button" class="btn btn-primary disabled" value="Tirer toutes les boules"
-                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
-                <input id="annuler" type="button" class="btn btn-primary disabled" value="Annuler"
-                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
+        <div id="settingstart">
+            <div class="span4">
+                Nombre de couleurs (entre 2 et 5)<input type="text" value="5" id="NBOFCOLLORS"><br>
+                Nombre de balles (entre 5 et 100)<input type="text" value="5" id="NBOFBALLS">
             </div>
+            <div class="span6" style="margin-top: 40px;">
+                <div id="toolbar">
+                    <input id="generer" type="button" class="btn btn-primary btn-large" value="Générer"
+                           onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false);">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="setting" style="display: none;">
+        <div class="btn-toolbar">
+            <input id="tireruneboule" type="button" class="btn btn-primary" value="Tirer une boule"
+                   onclick="pullBall();">
+            <input id="tirertouteslesboules" type="button" class="btn btn-primary" value="Tirer toutes les boules"
+                   onclick="pullAllBalls();">
+            <input id="generationsuivante" type="button" class="btn btn-primary" value="Génération suivante"
+                   onclick="changeGen();">
+            <input id="annuler" type="button" class="btn btn-primary" value="Annuler"
+                   onclick="window.top.window.location.href = 'index.html';">
         </div>
     </div>
 </div>
