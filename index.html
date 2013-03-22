@@ -21,19 +21,22 @@
 <div class="well">
     <div class="row-fluid">
         <div class="span4">
-            Nombre de couleurs (entre 2 et 5)<input type="text" value="5" id="NBOFCOLLORS"><br>
-            Nombre de balles (entre 5 et 100)<input type="text" value="5" id="NBOFBALLS">
+            Nombre de couleurs (entre 2 et 5)<input type="text" value="5" id="nbColors"><br>
+            Nombre de balles (entre 5 et 100)<input type="text" value="5" id="nbBalls">
         </div>
         <div class="span6" style="margin-top: 40px;">
             <div id="toolbar">
                 <input id="generer" type="button" class="btn btn-primary" value="Générer"
-                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false); changeGen();">
+                       onclick="remplirTabBoule(document.getElementById('nbBalls').value, document.getElementById('nbColors').value)">
                 <input id="tireruneboule" type="button" class="btn btn-primary disabled" value="Tirer une boule"
-                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
-                <input id="tirertouteslesboules" type="button" class="btn btn-primary disabled" value="Tirer toutes les boules"
-                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
+                       onclick="">
+                <input id="tirertouteslesboules" type="button" class="btn btn-primary disabled"
+                       value="Tirer toutes les boules"
+                       onclick="">
                 <input id="annuler" type="button" class="btn btn-primary disabled" value="Annuler"
-                       onclick="generateBalls(document.getElementById('NBOFBALLS').value, document.getElementById('NBOFCOLLORS').value, false)">
+                       onclick="reInit()">
+                <input id="newGen" class="btn btn-primary disabled" type="button" onclick="newGen()"
+                       value="Génération suivante">
             </div>
         </div>
     </div>
