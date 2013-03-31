@@ -20,6 +20,7 @@ function start_graph()
 
     draw_grid();
     draw_line(0, '#336699');
+    draw_line(1, '#CC0033')
 }
 
 function more_graph()
