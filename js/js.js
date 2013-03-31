@@ -32,6 +32,7 @@ function remplirTabBoule(nbBoule, nbCouleur) {
     console.log(tabListBallByColors);
     viewBalls();
 }
+
 function newGen() {
     var nbBoule = tabBoule[0].length, gen = [];
     console.log(nbBoule);
@@ -45,6 +46,7 @@ function newGen() {
     document.getElementById('gennumberst').innerHTML = nbGen - 1;
     document.getElementById('gennumbersd').innerHTML = nbGen;
 }
+
 function reInit() {
     ra.clear();
     ra.createBocal(0, 300, 300);
@@ -55,14 +57,15 @@ function reInit() {
     document.getElementById('gennumbersd').innerHTML = 1;
     nbGen = 0;
 }
+
 function viewBalls() {
     values = calculateballs();
     //values[0] -> nombre de boules
     //values[1] -> nombre de boules par lignes
     //values[2] -> rayon d'une boule
-    console.log('nombre de boule:' + values[0]);
-    console.log('nombre de boules par ligne:' + values[1]);
-    console.log('rayo,:' + values[2]);
+    console.log('nombre de boules:' + values[0]);
+    console.log('nombre de boules par lignes:' + values[1]);
+    console.log('rayon:' + values[2]);
 
     positionX = 100, positionY = 300, ballsAdd = 0;
     for (var iY = 0; iY < values[0]; iY++) {
@@ -81,16 +84,20 @@ function viewBalls() {
         positionY = positionY - (2 * values[2]);
     }
 }
-function calculateballs() {
 
+function calculateballs() {
     nbBoule = tabBoule[0].length;
     bouleParLigne = Math.ceil(Math.sqrt(nbBoule));
     rayonBoule = Math.floor(300 / bouleParLigne / 2.5);
 
     value = [nbBoule, bouleParLigne, rayonBoule];
     return value;
+}
+
+function pullBall() {
 
 }
+
 window.onload = function () {
     //creation du cadre
     reInit();
