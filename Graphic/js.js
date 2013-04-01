@@ -7,7 +7,11 @@ var yMin;
 var yMax;
 var xScale;
 var yScale;
-var points = [[[0, 0],[3, 5],[4, 7],[7, 2],[9, 1]],[[0, 0],[4, 6],[5, 7],[7, 8],[9, 1]]];
+var points;
+var tabColor = ['#336699','#CC0033','#FFFF00','#00FF00','#FF00FF','#FF6000'];
+
+var nbGenerations;
+var nbColor = 5;
 
 function start_graph()
 {
@@ -17,10 +21,23 @@ function start_graph()
     yMax = 10;
     xScale = 28;
     yScale = 28;
+    points = [];
+
+    nbGenerations = 1;
 
     draw_grid();
-    draw_line(0, '#336699');
-    draw_line(1, '#CC0033')
+
+    for(var i = 0; i < nbColor; i++)
+    {
+        points[i] = [];
+        points[i][0] = [];
+        points[i][0][0] = 0;
+        points[i][0][1] = 0;
+
+        draw_line(i, tabColor[i]);
+    }
+
+    console.log(points);
 }
 
 function more_graph()
@@ -30,15 +47,26 @@ function more_graph()
     xMax++;
     xScale--;
 
-    draw_grid();
-    draw_line(0, '#336699');
-}
+    nbGenerations++;
 
-function draw_graphe()
-{
     draw_grid();
-    draw_line(0, '#336699');
-    draw_line(1, '#CC0033');
+
+    var rowTab = nbGenerations - 1;
+
+    for(var i = 0; i < nbColor; i++)
+    {
+        var nbRandom = Math.floor(Math.random() * 10);
+
+        points[i][rowTab] = [];
+        points[i][rowTab][0] = nbGenerations;
+        points[i][rowTab][1] = nbRandom;
+
+        draw_line(i, tabColor[i]);
+    }
+
+    console.log(rowTab);
+    console.log(nbRandom);
+    console.log(points);
 }
 
 function value2pixels(point)
