@@ -16,7 +16,7 @@ var nbColor = 5;
 function start_graph()
 {
     xMin = 0;
-    xMax = 1;
+    xMax = 0;
     yMin = 0;
     yMax = 10;
     xScale = 28;
