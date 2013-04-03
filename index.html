@@ -27,15 +27,15 @@
         <div class="span6" style="margin-top: 40px;">
             <div id="toolbar">
                 <input id="generer" type="button" class="btn btn-primary" value="Générer"
-                       onclick="remplirTabBoule(document.getElementById('nbBalls').value, document.getElementById('nbColors').value);">
+                       onclick="remplirTabBoule(document.getElementById('nbBalls').value, document.getElementById('nbColors').value)">
                 <input id="tireruneboule" type="button" class="btn btn-primary disabled" value="Tirer une boule"
-                       onclick="pullBall();">
+                       onclick="">
                 <input id="tirertouteslesboules" type="button" class="btn btn-primary disabled"
                        value="Tirer toutes les boules"
                        onclick="">
                 <input id="annuler" type="button" class="btn btn-primary disabled" value="Annuler"
-                       onclick="reInit();">
-                <input id="newGen" class="btn btn-primary disabled" type="button" onclick="newGen();"
+                       onclick="reInit()">
+                <input id="newGen" class="btn btn-primary disabled" type="button" onclick="tabNewGen()"
                        value="Génération suivante">
             </div>
         </div>
