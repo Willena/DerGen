@@ -101,4 +101,6 @@ function pullBall() {
 window.onload = function () {
     //creation du cadre
     reInit();
+
+    console.log(nbGen);
 }
