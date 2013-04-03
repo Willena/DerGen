@@ -1,29 +1,29 @@
 var paper = Raphael('raphael_view', 400, 400);
 var xOrigin = 10;
-var yOrigin = 350;
-var xMin = 0;
-var xMax = 1;
-var yMin = 0;
-var yMax = 10;
-var xScale = 200;
-var yScale = 28;
-var points = [];
+var yOrigin = 400;
+var xMin;
+var xMax;
+var yMin;
+var yMax;
+var xScale;
+var yScale;
+var points;
 var tabColor = ['#336699','#CC0033','#FFFF00','#00FF00','#FF00FF','#FF6000'];
 
-var nbGenerations = 0;
+var nbGenerations;
 var nbColor = 5;
-
-var firstTime = 1;
-
-var tabGen = [[1,5,4,2,5,3,5,1,4,1,5],[2,4,1,3,5,1,4,2,3,5,4,2,5,1,2,4,3,1,5,2,5]];
-
-window.onload = function(){
-    draw_grid();
-}
 
 function start_graph()
 {
-    paper.clear();
+    xMin = 0;
+    xMax = 0;
+    yMin = 0;
+    yMax = 10;
+    xScale = 28;
+    yScale = 28;
+    points = [];
+
+    nbGenerations = 1;
 
     draw_grid();
 
@@ -44,36 +44,14 @@ function more_graph()
 {
     paper.clear();
 
-    if(firstTime == 1)
-    {
-        firstTime = 0;
-        nbGenerations = 2;
-    }
-    else
-    {
-        xMax++;
-        nbGenerations++;
-    }
+    xMax++;
+    xScale--;
 
-    xScale = 200/xMax;
+    nbGenerations++;
 
     draw_grid();
 
     var rowTab = nbGenerations - 1;
-
-    var nbColor1 = 0;
-
-    for(var z = 1; z < tabGen[0]; z++)
-    {
-        if(tabGen[1][z] == 1)
-        {
-            nbColor1++;
-        }
-
-        console.log(z);
-    }
-
-    console.log(nbColor1);
 
     for(var i = 0; i < nbColor; i++)
     {
@@ -86,7 +64,6 @@ function more_graph()
         draw_line(i, tabColor[i]);
     }
 
-    console.log(xMax + 'xMax');
     console.log(rowTab);
     console.log(nbRandom);
     console.log(points);
@@ -145,7 +122,7 @@ function draw_line(tab, color)
     }
 
     var line = paper.path(pathStr);
-    line.attr({'stroke' : color, 'stroke-width' : '1.5px'});
+    line.attr({'stroke' : color, 'stroke-width' : '2'});
 
     draw_points(tab, color);
 }
