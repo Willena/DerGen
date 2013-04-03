@@ -10,12 +10,12 @@ var yScale = 28;
 var points = [];
 var tabColor = ['#336699','#CC0033','#FFFF00','#00FF00','#FF00FF','#FF6000'];
 
-var nbGenerations = 0;
+var nbGen = 0;
 var nbColor = 5;
 
 var firstTime = 1;
 
-var tabGen = [[1,5,4,2,5,3,5,1,4,1,5],[2,4,1,3,5,1,4,2,3,5,4,2,5,1,2,4,3,1,5,2,5]];
+var tabBoule = [[1,5,4,2,5,3,5,1,4,1,5],[2,4,1,3,5,1,4,2,3,5,4,2,5,1,2,4,3,1,5,2,5]];
 
 window.onload = function(){
     draw_grid();
@@ -30,9 +30,50 @@ function start_graph()
     for(var i = 0; i < nbColor; i++)
     {
         points[i] = [];
-        points[i][0] = [];
-        points[i][0][0] = 0;
-        points[i][0][1] = 0;
+    }
+
+    var nbColor1 = 0,nbColor2 = 0,nbColor3 = 0,nbColor4 = 0,nbColor5 = 0;
+
+    for(var z = 1; z < tabBoule[nbGen].length; z++)
+    {
+        if(tabBoule[nbGen][z] == 1)
+        {
+            nbColor1++;
+        }
+        else if(tabBoule[nbGen][z] == 2)
+        {
+            nbColor2++;
+        }
+        else if(tabBoule[nbGen][z] == 3)
+        {
+            nbColor3++;
+        }
+        else if(tabBoule[nbGen][z] == 4)
+        {
+            nbColor4++;
+        }
+        else if(tabBoule[nbGen][z] == 5)
+        {
+            nbColor5++;
+        }
+    }
+
+    console.log(nbColor1);
+
+    var tabNbColorByGen = [nbColor1, nbColor2, nbColor3, nbColor4, nbColor5];
+
+    var totalNbBall = nbColor1 + nbColor2 + nbColor3 + nbColor4 + nbColor5;
+
+    var rowTab = points[0].length;
+
+    for(var i = 0; i < nbColor; i++)
+    {
+        var percentageNbColor = tabNbColorByGen[i];
+
+        points[i] = [];
+        points[i][rowTab] = [];
+        points[i][rowTab][0] = 0;
+        points[i][rowTab][1] = percentageNbColor;
 
         draw_line(i, tabColor[i]);
     }
@@ -47,27 +88,41 @@ function more_graph()
     if(firstTime == 1)
     {
         firstTime = 0;
-        nbGenerations = 2;
     }
     else
     {
         xMax++;
-        nbGenerations++;
     }
+
+    nbGen++;
 
     xScale = 200/xMax;
 
     draw_grid();
 
-    var rowTab = nbGenerations - 1;
+    var nbColor1 = 0,nbColor2 = 0,nbColor3 = 0,nbColor4 = 0,nbColor5 = 0;
 
-    var nbColor1 = 0;
-
-    for(var z = 1; z < tabGen[0]; z++)
+    for(var z = 1; z < tabBoule[nbGen].length; z++)
     {
-        if(tabGen[1][z] == 1)
+        if(tabBoule[nbGen][z] == 1)
         {
             nbColor1++;
+        }
+        else if(tabBoule[nbGen][z] == 2)
+        {
+            nbColor2++;
+        }
+        else if(tabBoule[nbGen][z] == 3)
+        {
+            nbColor3++;
+        }
+        else if(tabBoule[nbGen][z] == 4)
+        {
+            nbColor4++;
+        }
+        else if(tabBoule[nbGen][z] == 5)
+        {
+            nbColor5++;
         }
 
         console.log(z);
@@ -75,20 +130,27 @@ function more_graph()
 
     console.log(nbColor1);
 
+    var tabNbColorByGen = [nbColor1, nbColor2, nbColor3, nbColor4, nbColor5];
+
+    var totalNbBall = nbColor1 + nbColor2 + nbColor3 + nbColor4 + nbColor5;
+
+    var rowTab = points[0].length;
+
     for(var i = 0; i < nbColor; i++)
     {
-        var nbRandom = Math.floor(Math.random() * 10);
+        var percentageNbColor = tabNbColorByGen[i];
 
         points[i][rowTab] = [];
-        points[i][rowTab][0] = nbGenerations;
-        points[i][rowTab][1] = nbRandom;
+        points[i][rowTab][0] = xMax;
+        points[i][rowTab][1] = percentageNbColor;
 
         draw_line(i, tabColor[i]);
     }
 
     console.log(xMax + 'xMax');
     console.log(rowTab);
-    console.log(nbRandom);
+    console.log(percentageNbColor);
+    console.log(tabNbColorByGen);
     console.log(points);
 }
 
