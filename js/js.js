@@ -15,7 +15,8 @@ Raphael.fn.createBocal = function (x, sizeX, sizeY) {
     );
 };
 Raphael.fn.empty = function () {
-    ra.canvas.parentNode.removeChild(ra.canvas);
+    ra.remove();
+    ra = Raphael("holder", "1000", "400");
 }
 
 function remplirTabBoule(nbBoule, nbCouleur) {
@@ -48,7 +49,7 @@ function tabNewGen() {
     clear_and_add();
 }
 function reInit() {
-    ra.clear();
+    ra.empty();
     ra.createBocal(0, 300, 300);
     ra.createBocal(350, 300, 300);
     tabListBallByColors = [0, 0, 0, 0, 0];
@@ -94,7 +95,7 @@ function calculateballs(nbBoule) {
     value = [nbBoule, bouleParLigne, rayonBoule];
 }
 function clear_and_add() {
-    ra.clear();
+    ra.empty();
     ra.createBocal(0, 300, 300);
     ra.createBocal(350, 300, 300);
     viewBalls(false, -1);
