@@ -9,8 +9,6 @@ var yMax = 10;
 var xScale = 200;
 var yScale = 30;
 var points = [];
-var tabColor = ['#336699', '#CC0033', '#FFFF00', '#00FF00', '#FF00FF', '#FF6000'];
-
 var firstTime = 1;
 
 
@@ -37,16 +35,11 @@ Raphael.fn.empty = function () {
 function remplirTabBoule(nbBoule, nbCouleur) {
     document.getElementById('start').style.display = 'none';
     document.getElementById('toolbar').style.display = '';
-
     paper.empty();
-
-    paper.createBocal(0, 300, 300);
-    paper.createBocal(350, 300, 300);
-
+    paper.createBocal(0, 290, 290);
+    paper.createBocal(340, 290, 290);
     nbColor = nbCouleur;
-
     calculateballs(nbBoule);
-
     var nbMaxBoules = Math.ceil(nbBoule / nbColor), gen = [];
     for (var i = 0; i < nbBoule; i++) {
         var numColor = Math.floor(Math.random() * nbColor);
@@ -61,12 +54,9 @@ function remplirTabBoule(nbBoule, nbCouleur) {
     }
 
     tabBoule.push(gen);
-
     drawBallsInBocal(1, nbGen);
-
     console.log(tabListBallByColors);
     console.log(tabBoule);
-
     start_graph();
 }
 
@@ -124,10 +114,10 @@ function drawBallsInBocal(nbGraph, nbGen) {
         positionX = 450
     }
     else {
-        positionX = 100
+        positionX = 60+value[3];
     }
 
-    positionY = 300, ballsAdd = 0;
+    positionY = 320-value[4], ballsAdd = 0;
 
     for (var iY = 0; iY < value[0]; iY++) {
         for (var iX = 0; iX < value[1]; iX++) {
@@ -147,7 +137,7 @@ function drawBallsInBocal(nbGraph, nbGen) {
             positionX = 450
         }
         else {
-            positionX = 100
+            positionX = 60+value[3];
         }
 
         positionY = positionY - (2 * value[2]);
@@ -159,9 +149,8 @@ function reInit() {
     document.getElementById('start').style.display = '';
 
     paper.empty();
-
-    paper.createBocal(0, 300, 300);
-    paper.createBocal(350, 300, 300);
+    paper.createBocal(0, 290, 290);
+    paper.createBocal(340, 290, 290);
 
     draw_grid();
 
@@ -172,13 +161,24 @@ function reInit() {
 
     document.getElementById('gennumberst').innerHTML = 0;
     document.getElementById('gennumbersd').innerHTML = 1;
+    xOrigin = 740,yOrigin = 352,xMin = 0,xMax = 1,yMin = 0,yMax = 10,xScale = 200,yScale = 30,points = [],firstTime = 1;
 }
 
 function calculateballs(nbBoule) {
 
     bouleParLigne = Math.ceil(Math.sqrt(nbBoule));
-    rayonBoule = Math.floor(300 / bouleParLigne / 2.5);
-    value = [nbBoule, bouleParLigne, rayonBoule];
+    rayonBoule = Math.floor(300 / bouleParLigne / 2.05);
+    if (nbBoule < 50)
+    {
+        sizeXToAdd = Math.floor((290/ bouleParLigne/1.9)-18);
+        sizeYToAdd = 10;
+    }
+    else
+    {
+        sizeXToAdd = 0;
+        sizeYToAdd = 0;
+    }
+    value = [nbBoule, bouleParLigne, rayonBoule, sizeXToAdd, sizeYToAdd];
 }
 
 window.onload = function () {
@@ -239,7 +239,7 @@ function start_graph() {
         points[i][rowTab][0] = 0;
         points[i][rowTab][1] = percentageNbColor;
 
-        draw_line(i, tabColor[i]);
+        draw_line(i);
     }
 
     console.log(points);
@@ -249,7 +249,7 @@ function pointsShow() {
     draw_grid();
 
     for (var i = 0; i < nbColor; i++) {
-        draw_line(i, tabColor[i]);
+        draw_line(i);
     }
 }
 
@@ -306,7 +306,7 @@ function more_graph() {
         points[i][rowTab][0] = xMax;
         points[i][rowTab][1] = percentageNbColor;
 
-        draw_line(i, tabColor[i]);
+        draw_line(i);
     }
 
     console.log(xMax + ' xMax');
@@ -361,7 +361,7 @@ function draw_grid() {
     axis.attr({'stroke': '#333333', 'stroke-width': '0.6px'});
 }
 
-function draw_line(tab, color) {
+function draw_line(tab) {
     var pixelPoint = value2pixels(points[tab][0]);
     var pathStr = "M " + pixelPoint[0] + "," + pixelPoint[1];
 
@@ -400,7 +400,7 @@ function draw_points(tab, hsbcolor) {
 function set_handler(circle, text, affText) {
     circle.hover(function () {
             circle.animate({'r': 4}, 120);
-            text.animate({'x': 770, 'y': 25}, 120);
+            text.animate({'x': 830, 'y': 35}, 120);
             text.show();
             document.getElementById('textGraph').innerHTML = affText;
         },
