@@ -1,29 +1,56 @@
-tabBoule = [], tabListBallByColors = [] , ra = Raphael("holder", "1000", "400"), nbGen = 0, value = [];
+var tabBoule = [], tabListBallByColors = [] , paper = Raphael("holder", "1000", "400"), nbGen = 0, nbColor = 0, value = [];
+
+var xOrigin = 740;
+var yOrigin = 352;
+var xMin = 0;
+var xMax = 1;
+var yMin = 0;
+var yMax = 10;
+var xScale = 200;
+var yScale = 30;
+var points = [];
+var tabColor = ['#336699', '#CC0033', '#FFFF00', '#00FF00', '#FF00FF', '#FF6000'];
+
+var firstTime = 1;
+
 
 Raphael.fn.ball = function (x, y, r, hue) {
-    hue = hue / 10 || 0;
+    hue = hue / 5 || 0;
     return this.set(//code permettant la création d'une balle
         //this.ellipse(x, y + r - r / 5, r, r / 2).attr({fill:"rhsb(" + hue + ", 1, .25)-hsb(" + hue + ", 1, .25)", stroke:"none", opacity:0}),
-        this.ellipse(x, y, r, r).attr({fill:"r(.6,.4)hsb(" + hue + ", 1, .85)-hsb(" + hue + ", .5, .4)", stroke:"none"})//,
+        this.ellipse(x, y, r, r).attr({fill: "r(.6,.4)hsb(" + hue + ", 1, 1)-hsb(" + hue + ", .5, .4)", stroke: "none"})//,
         //this.ellipse(x, y, r - r / 5, r - r / 20).attr({stroke:"none", fill:"r(.5,.1)#ccc-#ccc", opacity:0})
     );
 };
 Raphael.fn.createBocal = function (x, sizeX, sizeY) {
-    var position_x = 50 + x;
+    var position_x = 40 + x;
     return this.set(
-        this.path("M" + position_x + " 50l0 " + sizeY + "l" + sizeX + " 0l0 -" + sizeY + "").attr({'stroke-width':10, stroke:'#B34'})
+        this.path("M" + position_x + " 50l0 " + sizeY + "l" + sizeX + " 0l0 -" + sizeY + "").attr({'stroke-width': 5, stroke: '#333333'})
     );
 };
 Raphael.fn.empty = function () {
-    ra.remove();
-    ra = Raphael("holder", "1000", "400");
+    paper.remove();
+    paper = Raphael("holder", "1000", "400");
+
 }
 
 function remplirTabBoule(nbBoule, nbCouleur) {
+    document.getElementById('start').style.display = 'none';
+    document.getElementById('toolbar').style.display = '';
+
+    paper.empty();
+
+    paper.createBocal(0, 300, 300);
+    paper.createBocal(350, 300, 300);
+
+    nbColor = nbCouleur;
+
     calculateballs(nbBoule);
-    var nbMaxBoules = Math.ceil(nbBoule / nbCouleur), gen = [];
+
+    var nbMaxBoules = Math.ceil(nbBoule / nbColor), gen = [];
     for (var i = 0; i < nbBoule; i++) {
-        var numColor = Math.floor(Math.random() * nbCouleur);
+        var numColor = Math.floor(Math.random() * nbColor);
+
         if (tabListBallByColors[numColor] != nbMaxBoules) {
             tabListBallByColors[numColor] = (tabListBallByColors[numColor]) + 1;
             gen.push(numColor)
@@ -32,41 +59,76 @@ function remplirTabBoule(nbBoule, nbCouleur) {
             i--;
         }
     }
+
     tabBoule.push(gen);
-    viewBalls();
+
+    drawBallsInBocal(1, nbGen);
+
+    console.log(tabListBallByColors);
+    console.log(tabBoule);
+
+    start_graph();
 }
-function tabNewGen() {
+
+function nextGen() {
+    document.getElementById('drawBall').classList.remove('disabled');
+    document.getElementById('drawAllBalls').classList.remove('disabled');
+    document.getElementById('newGen').classList.add('disabled');
+
+    paper.empty();
+
+    paper.createBocal(0, 300, 300);
+    paper.createBocal(350, 300, 300);
+
+    nbGen++;
+
+    document.getElementById('gennumberst').innerHTML = nbGen;
+    document.getElementById('gennumbersd').innerHTML = nbGen + 1;
+
+    drawBallsInBocal(1, nbGen);
+
+    more_graph();
+}
+
+function drawAllBalls() {
+    document.getElementById('newGen').classList.remove('disabled');
+    document.getElementById('drawBall').classList.add('disabled');
+    document.getElementById('drawAllBalls').classList.add('disabled');
+
+    paper.empty();
+
+    paper.createBocal(0, 300, 300);
+    paper.createBocal(350, 300, 300);
+
+    pointsShow()
 
     gen = [];
+
     for (var i = 0; i < value[0]; i++) {
         var numColor = tabBoule[nbGen][Math.floor(Math.random() * value[0])];
         gen.push(numColor);
     }
+
     tabBoule.push(gen);
-    nbGen++;
-    document.getElementById('gennumberst').innerHTML = nbGen - 1;
-    document.getElementById('gennumbersd').innerHTML = nbGen;
-    clear_and_add();
+
+    var nbGen2 = nbGen + 1;
+
+    drawBallsInBocal(1, nbGen);
+    drawBallsInBocal(2, nbGen2);
 }
-function reInit() {
-    ra.empty();
-    ra.createBocal(0, 300, 300);
-    ra.createBocal(350, 300, 300);
-    tabListBallByColors = [0, 0, 0, 0, 0];
-    tabBoule = [];
-    document.getElementById('gennumberst').innerHTML = 0;
-    document.getElementById('gennumbersd').innerHTML = 1;
-    nbGen = 0;
-}
-function viewBalls(newGenTF, cooef) {
-    cooef = cooef || 0;
-    nbGenBalls = nbGen + cooef;
-    if (newGenTF) {
+
+function drawBallsInBocal(nbGraph, nbGen) {
+    nbGenBalls = nbGen;
+
+    if (nbGraph != 1) {
         positionX = 450
-    } else {
+    }
+    else {
         positionX = 100
     }
+
     positionY = 300, ballsAdd = 0;
+
     for (var iY = 0; iY < value[0]; iY++) {
         for (var iX = 0; iX < value[1]; iX++) {
             if (ballsAdd == value[0]) {
@@ -74,35 +136,277 @@ function viewBalls(newGenTF, cooef) {
                 iY = value[0];
             }
             else {
-                ra.ball(positionX, positionY, value[2], tabBoule[nbGenBalls][ballsAdd]);
+                paper.ball(positionX, positionY, value[2], tabBoule[nbGenBalls][ballsAdd]);
                 positionX = positionX + (2 * value[2]);
                 ballsAdd++;
 
             }
         }
-        if (newGenTF) {
+
+        if (nbGraph != 1) {
             positionX = 450
-        } else {
+        }
+        else {
             positionX = 100
         }
+
         positionY = positionY - (2 * value[2]);
     }
 }
+
+function reInit() {
+    document.getElementById('toolbar').style.display = 'none';
+    document.getElementById('start').style.display = '';
+
+    paper.empty();
+
+    paper.createBocal(0, 300, 300);
+    paper.createBocal(350, 300, 300);
+
+    draw_grid();
+
+    tabListBallByColors = [0, 0, 0, 0, 0];
+    tabBoule = [];
+
+    nbGen = 0;
+
+    document.getElementById('gennumberst').innerHTML = 0;
+    document.getElementById('gennumbersd').innerHTML = 1;
+}
+
 function calculateballs(nbBoule) {
 
     bouleParLigne = Math.ceil(Math.sqrt(nbBoule));
     rayonBoule = Math.floor(300 / bouleParLigne / 2.5);
     value = [nbBoule, bouleParLigne, rayonBoule];
 }
-function clear_and_add() {
-    ra.empty();
-    ra.createBocal(0, 300, 300);
-    ra.createBocal(350, 300, 300);
-    viewBalls(false, -1);
-    viewBalls(true);
 
-}
 window.onload = function () {
     //creation du cadre
     reInit();
+
+    draw_grid();
+}
+
+function start_graph() {
+    draw_grid();
+
+    for (var i = 0; i < nbColor; i++) {
+        points[i] = [];
+    }
+
+    var nbColor0 = 0, nbColor1 = 0, nbColor2 = 0, nbColor3 = 0, nbColor4 = 0;
+
+    for (var z = 0; z < tabBoule[nbGen].length; z++) {
+        if (tabBoule[nbGen][z] == 0) {
+            nbColor0++;
+        }
+
+        if (tabBoule[nbGen][z] == 1) {
+            nbColor1++;
+        }
+
+        if (tabBoule[nbGen][z] == 2) {
+            nbColor2++;
+        }
+
+        if (tabBoule[nbGen][z] == 3) {
+            nbColor3++;
+        }
+
+        if (tabBoule[nbGen][z] == 4) {
+            nbColor4++;
+        }
+    }
+
+    console.log(nbColor0);
+    console.log(nbColor1);
+    console.log(nbColor2);
+    console.log(nbColor3);
+    console.log(nbColor4);
+
+    var tabNbColorByGen = [nbColor0, nbColor1, nbColor2, nbColor3, nbColor4];
+
+    var totalNbBall = nbColor0 + nbColor1 + nbColor2 + nbColor3 + nbColor4;
+
+    var rowTab = points[0].length;
+
+    for (var i = 0; i < nbColor; i++) {
+        var percentageNbColor = tabNbColorByGen[i] / totalNbBall * 10;
+
+        points[i] = [];
+        points[i][rowTab] = [];
+        points[i][rowTab][0] = 0;
+        points[i][rowTab][1] = percentageNbColor;
+
+        draw_line(i, tabColor[i]);
+    }
+
+    console.log(points);
+}
+
+function pointsShow() {
+    draw_grid();
+
+    for (var i = 0; i < nbColor; i++) {
+        draw_line(i, tabColor[i]);
+    }
+}
+
+function more_graph() {
+    console.log(tabBoule);
+
+    if (firstTime == 1) {
+        firstTime = 0;
+    }
+    else {
+        xMax++;
+    }
+
+    xScale = 200 / xMax;
+
+    draw_grid();
+
+    var nbColor0 = 0, nbColor1 = 0, nbColor2 = 0, nbColor3 = 0, nbColor4 = 0;
+
+    for (var z = 1; z < tabBoule[nbGen].length; z++) {
+        if (tabBoule[nbGen][z] == 0) {
+            nbColor0++;
+        }
+
+        if (tabBoule[nbGen][z] == 1) {
+            nbColor1++;
+        }
+
+        if (tabBoule[nbGen][z] == 2) {
+            nbColor2++;
+        }
+
+        if (tabBoule[nbGen][z] == 3) {
+            nbColor3++;
+        }
+
+        if (tabBoule[nbGen][z] == 4) {
+            nbColor4++;
+        }
+    }
+
+    console.log(nbColor0);
+
+    var tabNbColorByGen = [nbColor0, nbColor1, nbColor2, nbColor3, nbColor4];
+
+    var totalNbBall = nbColor0 + nbColor1 + nbColor2 + nbColor3 + nbColor4;
+
+    var rowTab = points[0].length;
+
+    for (var i = 0; i < nbColor; i++) {
+        var percentageNbColor = tabNbColorByGen[i] / totalNbBall * 10;
+
+        points[i][rowTab] = [];
+        points[i][rowTab][0] = xMax;
+        points[i][rowTab][1] = percentageNbColor;
+
+        draw_line(i, tabColor[i]);
+    }
+
+    console.log(xMax + ' xMax');
+    console.log(rowTab + ' rowTab');
+    console.log(percentageNbColor + ' percentageNbColor4');
+    console.log(tabNbColorByGen);
+    console.log(points);
+}
+
+function value2pixels(point) {
+    if (point[0] < xMin) {
+        point[0] = xMin;
+    }
+    if (point[1] < yMin) {
+        point[1] = yMin;
+    }
+    if (point[0] > xMax) {
+        point[0] = xMax;
+    }
+    if (point[1] > yMax) {
+        point[1] = yMax;
+    }
+
+    return [ xOrigin + point[0] * xScale, yOrigin - point[1] * yScale ];
+}
+
+function draw_grid() {
+    var pt1, pt2, axis;
+
+    for (var y = yMin; y <= yMax; ++y) {
+        pt1 = value2pixels([xMin, y]);
+        pt2 = value2pixels([xMax, y]);
+        axis = paper.path("M " + pt1[0] + "," + pt1[1] + " L " + pt2[0] + "," + pt2[1]);
+        axis.attr({'stroke': '#888', 'stroke-width': '0.4px'});
+    }
+
+    for (var x = xMin; x <= xMax; ++x) {
+        pt1 = value2pixels([x, yMin]);
+        pt2 = value2pixels([x, yMax]);
+        axis = paper.path("M " + pt1[0] + "," + pt1[1] + " L " + pt2[0] + "," + pt2[1]);
+        axis.attr({'stroke': '#888', 'stroke-width': '0.4px'});
+    }
+
+    pt1 = value2pixels([xMin, 0]);
+    pt2 = value2pixels([xMax, 0]);
+    axis = paper.path("M " + pt1[0] + "," + pt1[1] + " L " + pt2[0] + "," + pt2[1]);
+    axis.attr({'stroke': '#333333', 'stroke-width': '0.6px'});
+
+    pt1 = value2pixels([0, yMin]);
+    pt2 = value2pixels([0, yMax]);
+    axis = paper.path("M " + pt1[0] + "," + pt1[1] + " L " + pt2[0] + "," + pt2[1]);
+    axis.attr({'stroke': '#333333', 'stroke-width': '0.6px'});
+}
+
+function draw_line(tab, color) {
+    var pixelPoint = value2pixels(points[tab][0]);
+    var pathStr = "M " + pixelPoint[0] + "," + pixelPoint[1];
+
+    for (var i = 1; i < points[tab].length; ++i) {
+        pixelPoint = value2pixels(points[tab][i]);
+        pathStr += " L " + pixelPoint[0] + "," + pixelPoint[1];
+    }
+
+    var hsbcolor = tab / 5;
+
+    var line = paper.path(pathStr);
+    line.attr({'stroke': "hsb(" + hsbcolor + ", 1, 1)", 'stroke-width': '1.5px'});
+
+    draw_points(tab, hsbcolor);
+}
+
+function draw_points(tab, hsbcolor) {
+    var pixelPoint;
+
+    for (var i = 0; i < points[tab].length; ++i) {
+        pixelPoint = value2pixels(points[tab][i]);
+
+        var affText = 'Génération : ' + points[tab][i][0] + ', ' + Math.floor(points[tab][i][1] * 10) + '%';
+
+        var circle = paper.circle(pixelPoint[0], pixelPoint[1], 2);
+        var text = paper.text(pixelPoint[0], pixelPoint[1] - 16, affText);
+
+        circle.attr({fill: "#333", stroke: "hsb(" + hsbcolor + ", 1, 1)", "stroke-width": 4});
+        text.attr({'fill': '#400', 'font-size': '20px'});
+        text.hide();
+
+        set_handler(circle, text, affText);
+    }
+}
+
+function set_handler(circle, text, affText) {
+    circle.hover(function () {
+            circle.animate({'r': 4}, 120);
+            text.animate({'x': 770, 'y': 25}, 120);
+            text.show();
+            document.getElementById('textGraph').innerHTML = affText;
+        },
+        function () {
+            circle.animate({'r': 2}, 120);
+            text.hide();
+        }
+    );
 }

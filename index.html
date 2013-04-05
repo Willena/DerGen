@@ -17,28 +17,34 @@
 <div id="holder" class="well"></div>
 <div id="generationSt">Génération n°<span id="gennumberst">0</span></div>
 <div id="generationSd">Génération n°<span id="gennumbersd">1</span></div>
+<div id="textGraph"></div>
 
 <div class="well">
-    <div class="row-fluid">
-        <div class="span4">
-            Nombre de couleurs (entre 2 et 5)<input type="text" value="5" id="nbColors"><br>
-            Nombre de balles (entre 5 et 100)<input type="text" value="5" id="nbBalls">
-        </div>
-        <div class="span6" style="margin-top: 40px;">
-            <div id="toolbar">
-                <input id="generer" type="button" class="btn btn-primary" value="Générer"
-                       onclick="remplirTabBoule(document.getElementById('nbBalls').value, document.getElementById('nbColors').value)">
-                <input id="tireruneboule" type="button" class="btn btn-primary disabled" value="Tirer une boule"
-                       onclick="">
-                <input id="tirertouteslesboules" type="button" class="btn btn-primary disabled"
-                       value="Tirer toutes les boules"
-                       onclick="">
-                <input id="annuler" type="button" class="btn btn-primary disabled" value="Annuler"
-                       onclick="reInit()">
-                <input id="newGen" class="btn btn-primary disabled" type="button" onclick="tabNewGen()"
-                       value="Génération suivante">
+    <div id="start">
+        <div class="row-fluid">
+            <div class="span4">
+                Nombre de couleurs (entre 2 et 5)<input type="text" value="5" id="nbColors"><br>
+                Nombre de balles (entre 5 et 100)<input type="text" value="5" id="nbBalls">
+            </div>
+            <div class="span6" style="margin-top: 40px;">
+                <center>
+                    <input id="generer" type="button" class="btn btn-primary btn-large" value="Générer"
+                           onclick="remplirTabBoule(document.getElementById('nbBalls').value, document.getElementById('nbColors').value)">
+                </center>
             </div>
         </div>
+    </div>
+    <div id="toolbar" style="margin-top: 20px;margin-bottom: 20px;display: none;">
+        <center>
+            <input id="drawBall" type="button" class="btn btn-large" value="Tirer une boule"
+                   onclick="">
+            <input id="drawAllBalls" type="button" class="btn btn-large" value="Tirer toutes les boules"
+                   onclick="drawAllBalls();">
+            <input id="newGen" class="btn btn-large disabled" type="button" onclick="nextGen();"
+                   value="Génération suivante">
+            <input id="annuler" type="button" class="btn btn-warning btn-large" value="Annuler"
+                   onclick="reInit()">
+        </center>
     </div>
 </div>
 
