@@ -300,8 +300,7 @@ function more_graph() {
     var rowTab = points[0].length;
 
     for (var i = 0; i < nbColor; i++) {
-        var percentageNbColor = tabNbColorByGen[i] / totalNbBall * 10;
-
+        var percentageNbColor = Math.floor(tabNbColorByGen[i] / totalNbBall * 1000) / 100;
         points[i][rowTab] = [];
         points[i][rowTab][0] = xMax;
         points[i][rowTab][1] = percentageNbColor;
