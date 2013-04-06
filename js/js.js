@@ -63,7 +63,9 @@ function remplirTabBoule(nbBoule, nbCouleur) {
 function nextGen() {
     document.getElementById('drawBall').classList.remove('disabled');
     document.getElementById('drawAllBalls').classList.remove('disabled');
-    document.getElementById('newGen').classList.add('disabled');
+    document.getElementById('drawAllBalls').style.display = "";
+    document.getElementById('newGen').style.display = "none";
+
 
     paper.empty();
 
@@ -83,7 +85,9 @@ function nextGen() {
 function drawAllBalls() {
     document.getElementById('newGen').classList.remove('disabled');
     document.getElementById('drawBall').classList.add('disabled');
-    document.getElementById('drawAllBalls').classList.add('disabled');
+    document.getElementById('drawAllBalls').style.display = "none";
+    document.getElementById('newGen').style.display = "";
+
 
     paper.empty();
 
@@ -111,7 +115,7 @@ function drawBallsInBocal(nbGraph, nbGen) {
     nbGenBalls = nbGen;
 
     if (nbGraph != 1) {
-        positionX = 450
+        positionX = 410+value[3];
     }
     else {
         positionX = 60+value[3];
@@ -134,7 +138,7 @@ function drawBallsInBocal(nbGraph, nbGen) {
         }
 
         if (nbGraph != 1) {
-            positionX = 450
+            positionX = 410+value[3]
         }
         else {
             positionX = 60+value[3];
@@ -145,14 +149,14 @@ function drawBallsInBocal(nbGraph, nbGen) {
 }
 
 function reInit() {
+    document.getElementById("drawAllBalls").style.display = ""
+    document.getElementById("newGen").style.display = "none"
     document.getElementById('toolbar').style.display = 'none';
     document.getElementById('start').style.display = '';
 
     paper.empty();
     paper.createBocal(0, 290, 290);
     paper.createBocal(340, 290, 290);
-
-    draw_grid();
 
     tabListBallByColors = [0, 0, 0, 0, 0];
     tabBoule = [];
@@ -162,6 +166,7 @@ function reInit() {
     document.getElementById('gennumberst').innerHTML = 0;
     document.getElementById('gennumbersd').innerHTML = 1;
     xOrigin = 740,yOrigin = 352,xMin = 0,xMax = 1,yMin = 0,yMax = 10,xScale = 200,yScale = 30,points = [],firstTime = 1;
+    draw_grid();
 }
 
 function calculateballs(nbBoule) {
@@ -170,12 +175,12 @@ function calculateballs(nbBoule) {
     rayonBoule = Math.floor(300 / bouleParLigne / 2.05);
     if (nbBoule < 50)
     {
-        sizeXToAdd = Math.floor((290/ bouleParLigne/1.9)-18);
-        sizeYToAdd = 10;
+        sizeXToAdd = Math.floor((290/ bouleParLigne/1.9)-20);
+        sizeYToAdd = rayonBoule/2;
     }
     else
     {
-        sizeXToAdd = 0;
+        sizeXToAdd = -2.5;
         sizeYToAdd = 0;
     }
     value = [nbBoule, bouleParLigne, rayonBoule, sizeXToAdd, sizeYToAdd];
@@ -400,13 +405,13 @@ function draw_points(tab, hsbcolor) {
 function set_handler(circle, text, affText) {
     circle.hover(function () {
             circle.animate({'r': 4}, 120);
-            text.animate({'x': 830, 'y': 35}, 120);
-            text.show();
+           // text.animate({'x': 830, 'y': 35}, 120);
+           // text.show();
             document.getElementById('textGraph').innerHTML = affText;
         },
         function () {
             circle.animate({'r': 2}, 120);
-            text.hide();
+           // text.hide();
         }
     );
 }
