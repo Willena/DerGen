@@ -61,8 +61,6 @@ function remplirTabBoule(nbBoule, nbCouleur) {
 }
 
 function nextGen() {
-    document.getElementById('drawBall').classList.remove('disabled');
-    document.getElementById('drawAllBalls').classList.remove('disabled');
     document.getElementById('drawAllBalls').style.display = "";
     document.getElementById('newGen').style.display = "none";
     document.getElementById("drawBall").style.display = "";
@@ -83,10 +81,10 @@ function nextGen() {
 }
 
 function drawAllBalls() {
-    document.getElementById('newGen').classList.remove('disabled');
-    document.getElementById('drawBall').classList.add('disabled');
+
     document.getElementById('drawAllBalls').style.display = "none";
     document.getElementById('newGen').style.display = "";
+    document.getElementById('drawBall').style.display = "none";
 
 
     paper.empty();
@@ -416,7 +414,7 @@ function chooseBall() {
 }
 function drawBall() {
     //position[0] = X, position[1] = Y, position[2] = balladd, position[3] = ligne
-
+    console.log(position[2]);
     if (gen.length < value[0]) {
         if (position[3] < value[1]) {
             paper.ball(position[0], position[1], value[2], gen[position[2]]);
@@ -428,9 +426,9 @@ function drawBall() {
             position[0] = 400 + value[3];
             position[1] = position[1] - (2 * value[2]);
             position[3] = 1;
-            position[2]++;
             paper.ball(position[0], position[1], value[2], gen[position[2]]);
             position[0] = position[0] + (2 * value[2]);
+            position[2]++;
         }
     }
     else {
