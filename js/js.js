@@ -1,6 +1,6 @@
 var tabBoule = [], tabListBallByColors = [] , paper = Raphael("holder", "1000", "400"), nbGen = 0, nbColor = 0, value = [], gen = [], position = [];
 
-var xOrigin ,yOrigin ,xMin ,xMax , yMin ,yMax ,xScale ,yScale ,points = [],firstTime = 1;
+var xOrigin , yOrigin , xMin , xMax , yMin , yMax , xScale , yScale , points = [], firstTime = 1;
 
 
 Raphael.fn.ball = function (x, y, r, hue) {
@@ -24,10 +24,8 @@ Raphael.fn.empty = function () {
 }
 
 function remplirTabBoule(nbBoule, nbCouleur) {
-    if (nbCouleur <=5 && nbCouleur >=0)
-    {
-        if (nbBoule <= 100 && nbBoule >=0)
-        {
+    if (nbCouleur <= 5 && nbCouleur >= 0) {
+        if (nbBoule <= 100 && nbBoule >= 0) {
             document.getElementById('start').style.display = 'none';
             document.getElementById('toolbar').style.display = '';
             paper.empty();
@@ -36,7 +34,7 @@ function remplirTabBoule(nbBoule, nbCouleur) {
             nbColor = nbCouleur;
 
             calculateballs(nbBoule);
-            position[0] = 400+value[3],position[1] = 320-value[4], position[2] = 0, position[3] = 0;
+            position[0] = 400 + value[3], position[1] = 320 - value[4], position[2] = 0, position[3] = 0;
 
             var nbMaxBoules = Math.ceil(nbBoule / nbColor), gen = [];
             for (var i = 0; i < nbBoule; i++) {
@@ -75,7 +73,7 @@ function nextGen() {
     paper.createBocal(340, 290, 290);
 
     nbGen++;
-
+    position[0] = 400 + value[3], position[1] = 320 - value[4], position[2] = 0, position[3] = 0;
     document.getElementById('gennumberst').innerHTML = nbGen;
     document.getElementById('gennumbersd').innerHTML = nbGen + 1;
 
@@ -118,13 +116,13 @@ function drawBallsInBocal(nbGraph, nbGen) {
     nbGenBalls = nbGen;
 
     if (nbGraph != 1) {
-        positionX = 400+value[3];
+        positionX = 400 + value[3];
     }
     else {
-        positionX = 60+value[3];
+        positionX = 60 + value[3];
     }
 
-    positionY = 320-value[4], ballsAdd = 0;
+    positionY = 320 - value[4], ballsAdd = 0;
 
     for (var iY = 0; iY < value[0]; iY++) {
         for (var iX = 0; iX < value[1]; iX++) {
@@ -141,10 +139,10 @@ function drawBallsInBocal(nbGraph, nbGen) {
         }
 
         if (nbGraph != 1) {
-            positionX = 400+value[3]
+            positionX = 400 + value[3]
         }
         else {
-            positionX = 60+value[3];
+            positionX = 60 + value[3];
         }
 
         positionY = positionY - (2 * value[2]);
@@ -169,7 +167,7 @@ function reInit() {
 
     document.getElementById('gennumberst').innerHTML = 0;
     document.getElementById('gennumbersd').innerHTML = 1;
-    xOrigin = 700,yOrigin = 340,xMin = 0,xMax = 1,yMin = 0,yMax = 10,xScale = 250,yScale = 29,points = [],firstTime = 1;
+    xOrigin = 700, yOrigin = 340, xMin = 0, xMax = 1, yMin = 0, yMax = 10, xScale = 250, yScale = 29, points = [], firstTime = 1;
     draw_grid();
 }
 
@@ -177,13 +175,11 @@ function calculateballs(nbBoule) {
 
     bouleParLigne = Math.ceil(Math.sqrt(nbBoule));
     rayonBoule = Math.floor(300 / bouleParLigne / 2.05);
-    if (nbBoule < 50)
-    {
-        sizeXToAdd = Math.floor((290/ bouleParLigne/1.9)-20);
-        sizeYToAdd = rayonBoule/2;
+    if (nbBoule < 50) {
+        sizeXToAdd = Math.floor((290 / bouleParLigne / 1.9) - 20);
+        sizeYToAdd = rayonBoule / 2;
     }
-    else
-    {
+    else {
         sizeXToAdd = -2.5;
         sizeYToAdd = 0;
     }
@@ -349,12 +345,12 @@ function draw_grid() {
         axis.attr({'stroke': '#888', 'stroke-width': '0.4px'});
     }
 
- /*   for (var x = xMin; x <= xMax; ++x) {
-        pt1 = value2pixels([x, yMin]);
-        pt2 = value2pixels([x, yMax]);
-        axis = paper.path("M " + pt1[0] + "," + pt1[1] + " L " + pt2[0] + "," + pt2[1]);
-        axis.attr({'stroke': '#888', 'stroke-width': '0.4px'});
-    }*/
+    /*   for (var x = xMin; x <= xMax; ++x) {
+     pt1 = value2pixels([x, yMin]);
+     pt2 = value2pixels([x, yMax]);
+     axis = paper.path("M " + pt1[0] + "," + pt1[1] + " L " + pt2[0] + "," + pt2[1]);
+     axis.attr({'stroke': '#888', 'stroke-width': '0.4px'});
+     }*/
 
     pt1 = value2pixels([xMin, 0]);
     pt2 = value2pixels([xMax, 0]);
@@ -394,9 +390,9 @@ function draw_points(tab, hsbcolor) {
 
         var affText = 'Génération : ' + points[tab][i][0] + ', ' + Math.floor(points[tab][i][1] * 10) + '%';
 
-       // var circle = paper.circle(pixelPoint[0], pixelPoint[1], 1);
+        // var circle = paper.circle(pixelPoint[0], pixelPoint[1], 1);
         //circle.attr({fill: "#333", stroke: "hsb(" + hsbcolor + ", 1, 1)", "stroke-width": 4});
-      //  set_handler(circle, affText);
+        //  set_handler(circle, affText);
     }
 }
 
@@ -412,47 +408,41 @@ function set_handler(circle, affText) {
     );
 }
 
-function chooseBall()
-{
+function chooseBall() {
     var numColor = tabBoule[nbGen][Math.floor(Math.random() * value[0])];
     gen.push(numColor);
     drawBall();
 
 }
-function drawBall()
-{
+function drawBall() {
     //position[0] = X, position[1] = Y, position[2] = balladd, position[3] = ligne
 
-        if (gen.length < value[0])
-        {
-            if (position[3] < value[1])
-            {
-                paper.ball(position[0], position[1], value[2], gen[position[2]]);
-                position[0] = position[0] + (2 * value[2]);
-                position[2]++;
-                position[3]++;
-            }
-            else
-            {
-                position[0] = 400+value[3];
-                position[1] = position[1] - (2 * value[2]);
-                position[3] = 1;
-                position[2]++;
-                paper.ball(position[0], position[1], value[2], gen[position[2]]);
-                position[0] = position[0] + (2 * value[2]);
-            }
-        }
-        else
-        {
+    if (gen.length < value[0]) {
+        if (position[3] < value[1]) {
             paper.ball(position[0], position[1], value[2], gen[position[2]]);
-            tabBoule.push(gen);
-            gen = [];
-            document.getElementById("drawBall").style.display = "none";
-            document.getElementById("drawAllBalls").style.display = "none";
-            document.getElementById("newGen").style.display = "";
-            console.log("DISARITION ....")
-
+            position[0] = position[0] + (2 * value[2]);
+            position[2]++;
+            position[3]++;
         }
+        else {
+            position[0] = 400 + value[3];
+            position[1] = position[1] - (2 * value[2]);
+            position[3] = 1;
+            position[2]++;
+            paper.ball(position[0], position[1], value[2], gen[position[2]]);
+            position[0] = position[0] + (2 * value[2]);
+        }
+    }
+    else {
+        paper.ball(position[0], position[1], value[2], gen[position[2]]);
+        tabBoule.push(gen);
+        gen = [];
+        document.getElementById("drawBall").style.display = "none";
+        document.getElementById("drawAllBalls").style.display = "none";
+        document.getElementById("newGen").style.display = "";
+        console.log("DISARITION ....")
+
+    }
 
 
 }
