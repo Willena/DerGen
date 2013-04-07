@@ -1,6 +1,6 @@
 var tabBoule = [], tabListBallByColors = [] , paper = Raphael("holder", "1000", "400"), nbGen = 0, nbColor = 0, value = [], gen = [], position = [];
 
-var xOrigin , yOrigin , xMin , xMax , yMin , yMax , xScale , yScale , points = [], firstTime = 1;
+var xOrigin , yOrigin , xMin , xMax , yMin , yMax , xScale , yScale , points = [], firstTime = 1, First = 1;
 
 
 Raphael.fn.ball = function (x, y, r, hue) {
@@ -26,6 +26,7 @@ Raphael.fn.empty = function () {
 function remplirTabBoule(nbBoule, nbCouleur) {
     if (nbCouleur <= 5 && nbCouleur >= 0) {
         if (nbBoule <= 100 && nbBoule >= 0) {
+            First = 0;
             document.getElementById('start').style.display = 'none';
             document.getElementById('toolbar').style.display = '';
             paper.empty();
@@ -61,6 +62,7 @@ function remplirTabBoule(nbBoule, nbCouleur) {
 }
 
 function nextGen() {
+    First = 0;
     document.getElementById('drawAllBalls').style.display = "";
     document.getElementById('newGen').style.display = "none";
     document.getElementById("drawBall").style.display = "";
@@ -108,6 +110,7 @@ function drawAllBalls() {
     drawBallsInBocal(1, nbGen);
     drawBallsInBocal(2, nbGen2);
     gen = [];
+    First = 2;
 }
 
 function drawBallsInBocal(nbGraph, nbGen) {
@@ -153,7 +156,7 @@ function reInit() {
     document.getElementById('toolbar').style.display = 'none';
     document.getElementById('start').style.display = '';
     document.getElementById("textGraph").innerHTML = " ";
-
+    First = 1;
     paper.empty();
     paper.createBocal(0, 290, 290);
     paper.createBocal(340, 290, 290);
@@ -471,6 +474,7 @@ function drawBall(x, y) {
         Boule.animate({'cx': position[0], 'cy': position[1]}, 200);
         tabBoule.push(gen);
         gen = [];
+        First = 2;
         document.getElementById("drawBall").style.display = "none";
         document.getElementById("drawAllBalls").style.display = "none";
         document.getElementById("newGen").style.display = "";
@@ -479,4 +483,23 @@ function drawBall(x, y) {
     }
 
 
+}
+function keyDown(event) {
+    if (event.keyCode == 32 && First == 0) {
+        chooseBall();
+    }
+    else if (event.keyCode == 27) {
+        reInit();
+    }
+    else if (event.keyCode == 13) {
+        if (First == 1) {
+            remplirTabBoule(document.getElementById('nbBalls').value, document.getElementById('nbColors').value);
+        }
+        else if (First == 2) {
+            nextGen();
+        }
+        else {
+            drawAllBalls()
+        }
+    }
 }
