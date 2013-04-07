@@ -406,17 +406,52 @@ function set_handler(circle, affText) {
 }
 
 function chooseBall() {
-    var numColor = tabBoule[nbGen][Math.floor(Math.random() * value[0])];
+    var NbBouuleChoosed = Math.floor(Math.random() * value[0]);
+    var numColor = tabBoule[nbGen][NbBouuleChoosed];
+    var positionDoublonX , positionDoublonY
     gen.push(numColor);
-    drawBall();
+
+    console.log(numColor + "BALLECHOISI")
+
+    positionDoublonX = 60 + value[3];
+
+    positionDoublonY = 320 - value[4], ballsAdd = 0;
+
+    for (var iY = 0; iY < NbBouuleChoosed; iY++) {
+
+        for (var iX = 0; iX < value[1]; iX++) {
+
+            if (ballsAdd == NbBouuleChoosed) {
+                iX = value[1];
+                iY = NbBouuleChoosed;
+                console.log('TROUVER');
+                console.log(tabBoule[nbGen][iY]);
+                console.log("X-Y : " + positionDoublonX + "   ---   " + positionDoublonY);
+                BouleDx = positionDoublonX;
+                BouleDy = positionDoublonY;
+            }
+            else {
+                positionDoublonX = positionDoublonX + (2 * value[2]);
+                ballsAdd++;
+
+            }
+        }
+        positionDoublonX = 60 + value[3];
+
+        positionDoublonY = positionDoublonY - (2 * value[2]);
+    }
+
+
+    drawBall(BouleDx, BouleDy);
 
 }
-function drawBall() {
+function drawBall(x, y) {
     //position[0] = X, position[1] = Y, position[2] = balladd, position[3] = ligne
     console.log(position[2]);
     if (gen.length < value[0]) {
         if (position[3] < value[1]) {
-            paper.ball(position[0], position[1], value[2], gen[position[2]]);
+            var Boule = paper.ball(x, y, value[2], gen[position[2]]);
+            Boule.animate({'cx': position[0], 'cy': position[1]}, 200);
             position[0] = position[0] + (2 * value[2]);
             position[2]++;
             position[3]++;
@@ -425,13 +460,15 @@ function drawBall() {
             position[0] = 400 + value[3];
             position[1] = position[1] - (2 * value[2]);
             position[3] = 1;
-            paper.ball(position[0], position[1], value[2], gen[position[2]]);
+            var Boule = paper.ball(x, y, value[2], gen[position[2]]);
+            Boule.animate({'cx': position[0], 'cy': position[1]}, 200);
             position[0] = position[0] + (2 * value[2]);
             position[2]++;
         }
     }
     else {
-        paper.ball(position[0], position[1], value[2], gen[position[2]]);
+        var Boule = paper.ball(x, y, value[2], gen[position[2]]);
+        Boule.animate({'cx': position[0], 'cy': position[1]}, 200);
         tabBoule.push(gen);
         gen = [];
         document.getElementById("drawBall").style.display = "none";
