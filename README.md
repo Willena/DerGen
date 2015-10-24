@@ -3,6 +3,8 @@ DerGen
 
 La Dérive Génétique : Projet en javascript pour l'apprentissage de la dérive génétique en cours de SVT
 
+Ce projet est disponnible en démo ici : http://www.ac-nice.fr/svt/productions/freeware/derive/html5_veil/infos/index.html
+
 Fonctionnement
 ==============
 
